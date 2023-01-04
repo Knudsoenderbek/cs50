@@ -1,0 +1,60 @@
+#include <ctype.h>
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+
+// Points assigned to each letter of the alphabet
+int POINTS[] = {1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
+int score;
+int compute_score(string word);
+int calculate_score (int score);
+int difference;
+
+int main(void)
+{
+    // Get input words from both players
+    string word1 = get_string("Player 1: ");
+    string word2 = get_string("Player 2: ");
+
+    // Score both words
+    int score1 = compute_score(word1);
+    int score2 = compute_score(word2);
+
+    //calculate difference
+    if (score1 < score2)
+    {
+    difference = score2 - score1;
+    printf("Player 2 wins by %i points\n", difference);
+    }
+    else if (score2 < score1)
+    {
+        difference = score1 - score2;
+        printf("player 1 wins by %i points\n", difference );
+    }
+    else
+    {
+          printf("it's a draw\n");
+
+    }
+}
+
+int compute_score(string word)
+{
+    //find the nth letter of the word input
+    for (int i = 0, n = strlen(word); i < n; i++)
+
+    //determine if its upper or lower case
+    //then sum scores from values taken in the index
+    // letter is determined using ascii (65/97 and substracting so that it increases by one from a-z)
+    {
+        if (isupper(word[i]))
+        {
+            score += POINTS[word[i] - 'A'];
+        }
+    else
+        {
+           score += POINTS[word[i] - 'a'];
+        }
+    }
+    return score;
+}
